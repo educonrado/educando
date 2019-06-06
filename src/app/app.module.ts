@@ -1,5 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+//Firebase
+import { AngularFireModule } from "@angular/fire";
+import { AngularFirestoreModule } from "@angular/fire/firestore";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,6 +12,8 @@ import { GastosComponent } from './components/gastos/gastos.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { Page404Component } from './shared/page404/page404.component';
+//Environment
+import { environment } from 'src/environments/environment';
 
 
 @NgModule({
@@ -23,7 +28,9 @@ import { Page404Component } from './shared/page404/page404.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]
