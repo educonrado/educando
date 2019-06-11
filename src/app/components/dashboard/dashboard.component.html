@@ -132,7 +132,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h3 class="title-5 m-b-35">data table</h3>
+                <h3 class="title-5 m-b-35">Listado de gastos</h3>
                 <div class="table-data__tool">
                     <div class="table-data__tool-left">
                         <div class="rs-select2--light rs-select2--md">
@@ -177,17 +177,15 @@
                                         <span class="au-checkmark"></span>
                                     </label>
                                 </th>
-                                <th>name</th>
-                                <th>email</th>
-                                <th>description</th>
-                                <th>date</th>
-                                <th>status</th>
-                                <th>price</th>
+                                <th>Descripci&oacute;n</th>
+                                <th>Categoria</th>
+                                <th>Cuenta</th>
+                                <th>Valor</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="tr-shadow">
+                            <tr class="tr-shadow" *ngFor="let gasto of gastos">
                                 <td>
                                     <label class="au-checkbox">
                                         <input type="checkbox">

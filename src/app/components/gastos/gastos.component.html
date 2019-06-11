@@ -10,19 +10,38 @@
                 <h3 class="text-center title-2">Registro de gasto</h3>
               </div>
               <hr>
-              <form action="" method="post" novalidate="novalidate">
-                <div class="form-group">
-                  <label for="cc-payment" class="control-label mb-1"><i class="fas fa-money-bill-alt"></i> Valor</label>
-                  <input id="cc-pament" name="cc-payment" type="number" class="form-control" aria-required="true"
-                    aria-invalid="false" value="0.00">
+              <form class="create-form" [formGroup]="gastoForm" novalidate (ngSubmit)="onSubmit()">
+                <div class="row">
+                  <div class="col-10">
+                    <div class="form-group">
+                      <label for="cc-payment" class="control-label mb-1"><i class="fas fa-money-bill-alt"></i>
+                        Valor</label>
+                      <input id="cc-payment" name="cc-payment" type="number" class="form-control" 
+                      aria-required="true" aria-invalid="false" value="0.00" formControlName="valor">
+                    </div>
+                  </div>
+                  <div class="col-2">
+                    <label for="" class="control-label mb-1"> Pagado</label>
+                    <input type="checkbox" id="cbx" style="display: none;" aria-required="true"
+                      formControlName="realizado" aria-invalid="false">
+                    <label for="cbx" class="check">
+                      <svg width="18px" height="18px" viewBox="0 0 18 18">
+                        <path
+                          d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z">
+                        </path>
+                        <polyline points="1 9 7 14 15 4"></polyline>
+                      </svg>
+                    </label>
+                  </div>
                 </div>
-                <div class="form-group has-success">
-                  <label for="cc-name" class="control-label mb-1"><i class="fas fa-sticky-note"></i>
+                <div class="form-group">
+                  <label for="cc-descripcion" class="control-label mb-1"><i class="fas fa-sticky-note"></i>
                     Descripci&oacute;n</label>
-                  <input id="cc-name" name="cc-name" type="text" class="form-control cc-name valid" data-val="true"
-                    data-val-required="Ingrese un detalle del gasto" autocomplete="cc-name" aria-required="true"
-                    aria-invalid="false" aria-describedby="cc-name-error">
-                  <span class="help-block field-validation-valid" data-valmsg-for="cc-name"
+                  <input id="cc-descripcion" name="cc-descripcion" type="text" class="form-control cc-descripcion valid"
+                    data-val="true" data-val-required="Ingrese un detalle del gasto" autocomplete="cc-descripcion"
+                    aria-required="true" aria-invalid="false" aria-describedby="cc-descripcion-error"
+                    formControlName="descripcion" required>
+                  <span class="help-block field-validation-valid" data-valmsg-for="cc-descripcion"
                     data-valmsg-replace="true"></span>
                 </div>
                 <div class="row">
@@ -32,16 +51,12 @@
                         <i class="fas fa-utensils"></i>
                         Categoria
                       </label>
-                      <select name="categoria" id="categoria" class="form-control">
-                          <option value="0">Please select</option>
-                          <option value="1">Option #1</option>
-                          <option value="2">Option #2</option>
-                          <option value="3">Option #3</option>
+                      <select name="categoria" id="categoria" class="form-control" formControlName="categoria" required>
+                        <option *ngFor="let categoria of categoriasGasto" 
+                          [ngValue]="categoria.nombre">
+                          {{categoria.nombre}} 
+                        </option>
                       </select>
-                      <!--<input id="cc-exp" name="cc-exp" type="tel" class="form-control cc-exp" value="" data-val="true"
-                        data-val-required="Please enter the card expiration"
-                        data-val-cc-exp="Please enter a valid month and year" placeholder="MM / YY"
-                        autocomplete="cc-exp">-->
                       <span class="help-block" data-valmsg-for="cc-exp" data-valmsg-replace="true"></span>
                     </div>
                   </div>
@@ -51,16 +66,12 @@
                       Cuenta
                     </label>
                     <div class="input-group">
-                      <!--<input id="x_card_code" name="x_card_code" type="tel" class="form-control cc-cvc" value=""
-                        data-val="true" data-val-required="Please enter the security code"
-                        data-val-cc-cvc="Please enter a valid security code" autocomplete="off">-->
-                        <select name="cuenta" id="cuenta" class="form-control">
-                            <option value="0">Please select</option>
-                            <option value="1">Option #1</option>
-                            <option value="2">Option #2</option>
-                            <option value="3">Option #3</option>
-                        </select>
-
+                      <select name="cuenta" id="cuenta" class="form-control" formControlName="cuenta" required >
+                        <option *ngFor="let cuenta of cuentas" 
+                        [value]="cuenta.nombre">
+                        {{cuenta.nombre}}
+                      </option>
+                      </select>
                     </div>
                   </div>
                 </div>
@@ -69,13 +80,14 @@
                     <i class="far fa-calendar-alt"></i>
                     Fecha
                   </label>
-                  <input id="cc-number" name="cc-number" type="date" class="form-control cc-number identified visa"
-                    value="" data-val="true" data-val-required="Please enter the card number"
-                    data-val-cc-number="Please enter a valid card number" autocomplete="cc-number">
+                  <input id="fecha" type="date" class="form-control cc-name valid" data-val="true"
+                    data-val-required="Ingrese un detalle del gasto" autocomplete="cc-name" aria-required="true"
+                    aria-invalid="false" aria-describedby="cc-name-error" formControlName="fecha"
+                    [value]="fechaActual | date:'yyyy-MM-dd'">
                   <span class="help-block" data-valmsg-for="cc-number" data-valmsg-replace="true"></span>
                 </div>
                 <div>
-                  <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block">
+                  <button id="payment-button" type="submit" [disabled]="!gastoForm.valid" class="btn btn-lg btn-info btn-block">
                     <i class="fas fa-save"></i>&nbsp;
                     <span id="payment-button-amount">Guardar</span>
                     <span id="payment-button-sending" style="display:none;">Sending…</span>
@@ -89,3 +101,44 @@
     </div>
   </div>
 </div>
+
+<!--
+
+
+  <div class="form-group">
+    <mat-form-field class="input-style">
+      <input matInput placeholder="Name" class="form-control" formControlName="name">
+    </mat-form-field>
+    <ng-container *ngFor="let validation of validation_messages.name">
+      <mat-error *ngIf="exampleForm.get('name').hasError(validation.type) && (exampleForm.get('name').dirty || exampleForm.get('name').touched)">{{validation}}</mat-error>
+    </ng-container>
+  </div>
+
+  <div class="form-group">
+    <mat-form-field class="input-style">
+      <input matInput placeholder="Surname" class="form-control" formControlName="surname">
+    </mat-form-field>
+    <ng-container *ngFor="let validation of validation_messages.surname">
+      <mat-error *ngIf="exampleForm.get('surname').hasError(validation.type) && (exampleForm.get('surname').dirty || exampleForm.get('surname').touched)">{{validation}}</mat-error>
+    </ng-container>
+  </div>
+
+  <div class="form-group">
+    <mat-form-field class="input-style">
+      <input matInput type="number" min="0" max="100" placeholder="Age" class="form-control" formControlName="age">
+    </mat-form-field>
+    <ng-container *ngFor="let validation of validation_messages.age">
+      <mat-error *ngIf="exampleForm.get('age').hasError(validation.type) && (exampleForm.get('age').dirty || exampleForm.get('age').touched)">{{validation}}</mat-error>
+    </ng-container>
+  </div>
+
+  <div class="row submit-button-container">
+    <div class="col-md-4">
+      <button mat-raised-button class="submit-button" color="primary" type="submit" [disabled]="!exampleForm.valid">Create</button>
+    </div>
+  </div>
+
+</form>
+
+
+-->

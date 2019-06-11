@@ -8,12 +8,12 @@ const routes: Routes = [
   { path: '', component: DashboardComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'gastos', component: GastosComponent },
-  { path: '**', component: Page404Component }
+  { path: '**', pathMatch:'full' , redirectTo: '' }
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { useHash: true })],
+    RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

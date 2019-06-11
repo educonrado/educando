@@ -1643,8 +1643,8 @@
   "use strict";
 
   try {
-    
-    $('[data-toggle="tooltip"]').tooltip();
+    //Comentado para que no de error
+    //$('[data-toggle="tooltip"]').tooltip();
 
   } catch (error) {
     console.log(error);
