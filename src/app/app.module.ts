@@ -16,6 +16,7 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { Page404Component } from './shared/page404/page404.component';
 //Environment
 import { environment } from 'src/environments/environment';
+import { LoginComponent } from './components/login/login.component';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { environment } from 'src/environments/environment';
     DashboardComponent,
     FooterComponent,
     Page404Component,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
