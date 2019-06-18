@@ -1,22 +1,26 @@
 <div class="limiter">
   <div class="container-login100">
     <div class="wrap-login100">
-      <p *ngIf="false">
+      <!--Cabecera de bienvenida-->
+      <p *ngIf="true">
         <span class="login100-form-title p-b-26">
           Bienvenido
         </span>
       </p>
-      <p *ngIf="false">
+      <!--Cabecera de login-->
+      <p *ngIf="true">
         <span class="login100-form-title p-b-48">
           <i class="zmdi zmdi-explicit"></i>
         </span>
       </p>
-      <div id="login" *ngIf="false">
+      <!--Pantalla de login normal-->
+      <form [formGroup]="authForm" novalidate>
+      <div id="login" *ngIf="true">
         <div class="wrap-input100 validate-input" data-validate="Ingrese un mail correcto">
           <span class="btn-show-pass">
             <i class="zmdi zmdi-account-o"></i>
           </span>
-          <input class="input100" type="text" name="email" required>
+          <input class="input100" type="text" name="email" formControlName="email" required>
           <span class="focus-input100" data-placeholder="Email"></span>
         </div>
 
@@ -24,29 +28,35 @@
           <span class="btn-show-pass">
             <i class="zmdi zmdi-lock-outline"></i>
           </span>
-          <input class="input100" type="password" name="pass" required>
+          <input class="input100" type="password" name="password" formControlName="password" required>
           <span class="focus-input100" data-placeholder="Password"></span>
         </div>
 
         <div class="col-12 text-center">
-          <button type="button" class="btn btn-primary">
+          <button type="submit" class="btn btn-primary" [disabled]="!authForm.valid" (click)="loginWithEmailPasword(authForm.value)">
             <i class="zmdi zmdi-shield-check"></i>
             Login
           </button>
         </div>
-        <div id="loginRedesSociales">
-
+        <div class="social-login">
+            <span class="social-label text-muted">O inicia sesi&oacute;n con</span>
+            <ul class="socials">
+                <li><a href="#"><i class="display-flex-center zmdi zmdi-facebook"></i></a></li>
+                <li><a href="#"><i class="display-flex-center zmdi zmdi-twitter"></i></a></li>
+                <li><a href="#"><i class="display-flex-center zmdi zmdi-google"></i></a></li>
+            </ul>
         </div>
-        <div class="text-center p-t-115">
+        <div class="text-center p-t-40">
           <span class="text-muted">
             ¿No tienes una cuenta?
           </span>
-
           <a class="text-primary" href="#">
             Reg&iacute;strate
           </a>
         </div>
       </div>
+    </form>
+      <!--Pantalla para registro de nuevo usuario con correo y contraseña-->
       <div id="registro" *ngIf="false">
         <div class="wrap-input100 validate-input" data-validate="Ingrese su nombre">
           <span class="btn-show-pass">
@@ -76,7 +86,8 @@
           </button>
         </div>
       </div>
-      <div id="registro" *ngIf="true" class="text-center p-5">
+      <!--Pantalla de confirmación de registro exitoso-->
+      <div id="exitoso" *ngIf="false" class="text-center p-5">
         <p>
           <i class="fas fa-check-circle fa-4x fa-lg" style="color: greenyellow;"></i>
         </p>
@@ -88,6 +99,35 @@
             Salir
           </button>
         </div>
+      </div>
+      <!--Envía un correo electrónico de restablecimiento de la contraseña. En etapa de investigación -->
+      <!--
+          var auth = firebase.auth();
+          var emailAddress = "user@example.com";
+
+          auth.sendPasswordResetEmail(emailAddress).then(function() {
+            // Email sent.
+          }).catch(function(error) {
+            // An error happened.
+          });
+      -->
+      <div id="recuperacion" *ngIf="false">
+        <div class="text-muted p-3" >
+          <label for="info" class="text-center">Ingrese su correo electr&oacute;nico a continuaci&oacute;n y le enviaremos las instrucciones de restablecimiento</label>
+        </div>
+          <div class="wrap-input100 validate-input" data-validate="Ingrese un mail correcto">
+            <span class="btn-show-pass">
+              <i class="zmdi zmdi-email"></i>
+            </span>
+            <input class="input100 mail" type="email" name="correo" required>
+            <span class="focus-input100" data-placeholder="Correo"></span>
+          </div>
+          <div class="col-12 text-center">
+            <button type="button" class="btn btn-primary">
+              <i class="zmdi zmdi-check-all"></i>
+              Recuperar
+            </button>
+          </div>
       </div>
 
 
