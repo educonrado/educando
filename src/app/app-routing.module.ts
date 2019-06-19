@@ -7,10 +7,17 @@ import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './services/auth.guard';
 
 const routes: Routes = [
-  { path: '', component: DashboardComponent },
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent, canActivate:[AuthGuard] },
   { path: 'gastos', component: GastosComponent, canActivate:[AuthGuard] },
-  { path: '**', pathMatch:'full' , redirectTo: '' }
+  { path: 'login', component: LoginComponent},
+  { path: '**', redirectTo: '/dashboard' }
+  /**
+   * { path: 'home', component: HomeComponent, canActivate: [ AuthorizatedGuard ] },
+  { path: 'login', component: LoginComponent },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '**', redirectTo: '/home'}
+   */
 ];
 
 @NgModule({

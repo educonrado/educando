@@ -1,10 +1,11 @@
-<app-login *ngIf="isLogged"></app-login>
-<div class="page-wrapper" *ngIf="!isLogged">
-  <app-cabecera></app-cabecera>
+
+<div class="page-wrapper">
+  
   <div class="page-content--bgf7">  
-    <router-outlet></router-outlet>
+    <router-outlet>
+      
+    </router-outlet>
   </div>
-  <app-controles></app-controles>
-  <app-footer></app-footer>
+  
 </div>
 
